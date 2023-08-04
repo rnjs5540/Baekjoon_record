@@ -20,7 +20,4 @@ for i in range(n):
         else:
             arr[i][j] = max(arr[j]) + 1
 
-maxList = []
-for i in range(n):
-    maxList.append(max(arr[i]))
-print(max(maxList))
+print(max(map(max, arr)))
