@@ -1,46 +1,47 @@
 import java.util.Scanner;
-import java.util.Set;
-import java.util.HashSet;
 
 public class Main {
+    static int targetChannel;
+    static boolean[] isBroken;
 
-    public static boolean canMove(int channel, Set<Integer> brokenButtons) {
+    public static boolean canMove(int channel) {
         for (char ch : Integer.toString(channel).toCharArray()) {
-            if (brokenButtons.contains(Character.getNumericValue(ch))) {
+            if (isBroken[Character.getNumericValue(ch)])
                 return false;
-            }
         }
         return true;
     }
 
-    public static int minPresses(int targetChannel, Set<Integer> brokenButtons) {
+    public static int getMinPress() {
         int minPress = Math.abs(targetChannel - 100);
-        
-        for (int i = 0; i < 1000001; i++) {
+
+        // i는 +,- 버튼 수
+        for (int i = 0; i < 500000; i++) {
             int channel = targetChannel - i;
-            if (channel >= 0 && canMove(channel, brokenButtons)) {
+            if (channel >= 0 && canMove(channel)) {
                 minPress = Math.min(minPress, Integer.toString(channel).length() + i);
             }
 
             channel = targetChannel + i;
-            if (canMove(channel, brokenButtons)) {
+            if (canMove(channel)) {
                 minPress = Math.min(minPress, Integer.toString(channel).length() + i);
             }
+
+            if (minPress != Math.abs(targetChannel - 100))
+                break;
         }
         return minPress;
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int targetChannel = scanner.nextInt();
-        int numBroken = scanner.nextInt();
-        Set<Integer> brokenButtons = new HashSet<>();
-
-        for (int i = 0; i < numBroken; i++) {
-            brokenButtons.add(scanner.nextInt());
+        Scanner sc = new Scanner(System.in);
+        targetChannel = sc.nextInt();
+        isBroken = new boolean[10];
+        int brokenCount = sc.nextInt();
+        for (int i = 0; i < brokenCount; ++i) {
+            isBroken[sc.nextInt()] = true;
         }
-        scanner.close();
 
-        System.out.println(minPresses(targetChannel, brokenButtons));
+        System.out.println(getMinPress());
     }
 }
