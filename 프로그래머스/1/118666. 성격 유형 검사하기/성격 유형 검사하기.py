@@ -16,6 +16,7 @@ def solution(survey, choices):
             # s[1] = tmp
             # 파이썬에선 str이 아이템 수정이 안된다네,,
             s = s[1] + s[0]
+            # s =  [::-1] 이게 이쁘넹
         scores[s] += c
     
     for key, val in scores.items():
