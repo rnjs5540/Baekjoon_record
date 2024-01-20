@@ -1,5 +1,8 @@
 def getDist(loc1, loc2):
+    print(loc1, loc2, abs(loc1[0] - loc2[0]) + abs(loc1[1]))
     return abs(loc1[0] - loc2[0]) + abs(loc1[1] - loc2[1])
+    # print(loc1, loc2, pow(loc1[0]-loc2[0],2) + pow(loc1[1]-loc2[1], 2))
+    # return pow(loc1[0]-loc2[0],2) + pow(loc1[1]-loc2[1], 2)
 
 def solution(numbers, hand):
     answer = ''
@@ -9,7 +12,6 @@ def solution(numbers, hand):
         if number == 0:
             number = 11
         nloc = [(number-1)//3, (number-1)%3]
-        print(number, nloc)
         if nloc[1] == 0:
             answer += 'L'
             lloc = nloc
@@ -21,7 +23,7 @@ def solution(numbers, hand):
         
         ldist = getDist(nloc, lloc)
         rdist = getDist(nloc, rloc)
-        print("same:",lloc, ldist, rloc, rdist)
+        print(number)
         if ldist < rdist or (ldist == rdist and hand == 'left'):
             print('l')
             answer += 'L'
