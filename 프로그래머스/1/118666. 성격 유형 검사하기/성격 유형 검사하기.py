@@ -1,19 +1,19 @@
 def solution(survey, choices):    
     answer = ''
-    correct_order = ("RT", "CF", "JM", "AN")
-    scores = {'R':0,'T':0,'C':0,'F':0,'J':0,'M':0,'A':0,'N':0}
+    scores = {'RT':0,'CF':0,'JM':0,'AN':0}
     for one_survey, choice in zip(survey, choices):
-        scores[one_survey[1]] += choice-4
+        choice -= 4
+        if one_survey not in scores:
+            one_survey = one_survey[::-1]
+            print('뒤집')
+            choice *= -1
+        scores[one_survey] += choice
     print(scores)
     
-    def get_answer(answer, A, B):
-        if scores[A] < scores[B]:
-            answer += B
+    for key, val in scores.items():
+        if val > 0:
+            answer += key[1]
         else:
-            answer += A
-        return answer
-    
-    for order in correct_order:
-        answer = get_answer(answer, order[0], order[1])
+            answer += key[0]
     
     return answer
