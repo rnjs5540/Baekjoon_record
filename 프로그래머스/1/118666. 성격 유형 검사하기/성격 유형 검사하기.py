@@ -1,28 +1,19 @@
-def solution(survey, choices):
+def solution(survey, choices):    
     answer = ''
-    scores = {
-        'RT':0,
-        'CF':0,
-        'JM':0,
-        'AN':0,
-    }
+    correct_order = ("RT", "CF", "JM", "AN")
+    scores = {'R':0,'T':0,'C':0,'F':0,'J':0,'M':0,'A':0,'N':0}
+    for one_survey, choice in zip(survey, choices):
+        scores[one_survey[1]] += choice-4
+    print(scores)
     
-    for s, c in zip(survey, choices):
-        c -= 4
-        if s == 'TR' or s == 'FC' or s == 'MJ' or s == 'NA':
-            c *= -1
-            # tmp = s[0]
-            # s[0] = s[1]
-            # s[1] = tmp
-            # 파이썬에선 str이 아이템 수정이 안된다네,,
-            s = s[1] + s[0]
-            # s =  [::-1] 이게 이쁘넹
-        scores[s] += c
-    
-    for key, val in scores.items():
-        if val <= 0:
-            answer += key[0]
+    def get_answer(answer, A, B):
+        if scores[A] < scores[B]:
+            answer += B
         else:
-            answer += key[1]
+            answer += A
+        return answer
     
-    return answer 
+    for order in correct_order:
+        answer = get_answer(answer, order[0], order[1])
+    
+    return answer
