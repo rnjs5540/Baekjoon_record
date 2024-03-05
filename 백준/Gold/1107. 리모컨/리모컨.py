@@ -1,11 +1,6 @@
 goal = input()
 brokenCount = int(input())
-
-BrokenArr = []
-if brokenCount > 0:
-    brokenNums = input()
-    for brokenNum in brokenNums.split():
-        BrokenArr.append(brokenNum)
+BrokenArr = [] if brokenCount == 0 else list(input().split())
 
 minDiff = abs(int(goal) - 100)
 for num in range(1000001):
@@ -15,8 +10,9 @@ for num in range(1000001):
         if digit in BrokenArr:
             isPossible = False
             break
-    if isPossible:
-        diff = abs(int(goal) - int(num)) + len(num)
-        minDiff = min(minDiff, diff)
+    if not isPossible: 
+        continue
+    diff = abs(int(goal) - int(num)) + len(num)
+    minDiff = min(minDiff, diff)        
 
 print(minDiff)
