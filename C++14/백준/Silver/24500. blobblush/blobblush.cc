@@ -11,7 +11,7 @@ int main() {
     long long tmp = N;
     int cnt = 0;
     while (tmp) {
-        tmp = tmp >> 1;
+        tmp /= 2;
         cnt++;
     }
 
